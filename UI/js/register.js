@@ -20,10 +20,15 @@ function registerUser(e){
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      document.getElementById("message").innerHTML=data.message;
-      let output = `<div >${data}</div>`
-
+      if ('You registered successfully. Please login.' === data.message){
+        document.getElementById("message").innerHTML=data.message;
+        window.location.href = './login.html'
+        document.getElementById("message").innerHTML=data.message;
+        
+      } else{
+        document.getElementById("message").innerHTML=data.message;
+      }
+      
     })
-    // document.getElementById("message").innerHTML = output;
     
   }
