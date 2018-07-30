@@ -382,3 +382,55 @@ a {
   
 }
 
+#danger{
+  color:rgb(219, 41, 41);
+  background-color: #f0e2e2;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 22px;
+}
+#success{
+  color:rgb(73, 231, 10);
+  background-color: #f0e2e2;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 22px;
+}
+
+#message{
+  color:rgb(219, 41, 41);
+  background-color: #f0e2e2;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.details-button {
+  background-color: #dbd3e2;
+  color: rgb(29, 27, 27);
+  padding: 7px 15px; 
+  text-align: center;
+  border-radius: 5px;
+  width: 95px;
+ 
+  }
+
+  .details-success{
+    background-color: rgb(73, 231, 10);
+    color: #f0e2e2;
+    padding: 7px 15px; 
+    text-align: center;
+    border-radius: 5px;
+    width: 50px;
+   
+    }
+    .details-danger {
+      background-color: #e90707 ;
+      color: #f0e2e2;
+      padding: 7px 15px; 
+      text-align: center;
+      border-radius: 5px;
+      width: 50px;
+     
+      }
+

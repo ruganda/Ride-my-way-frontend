@@ -1,6 +1,8 @@
 "use strict";
 
 document.getElementById('registerUser').addEventListener('submit', registerUser);
+let success = document.getElementById("success");
+let danger = document.getElementById("danger");
 
 function registerUser(e){
     e.preventDefault();
@@ -8,7 +10,7 @@ function registerUser(e){
     let name = document.getElementById('name').value;
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-
+    
     fetch("http://127.0.0.1:5000/api/v2/auth/register",{
       method:'POST',
       headers: {
@@ -21,12 +23,11 @@ function registerUser(e){
     .then((data) => {
       console.log(data);
       if ('You registered successfully. Please login.' === data.message){
-        document.getElementById("message").innerHTML=data.message;
+        success.innerHTML=data.message;
         window.location.href = './login.html'
-        document.getElementById("message").innerHTML=data.message;
         
       } else{
-        document.getElementById("message").innerHTML=data.message;
+        danger.innerHTML=data.message;
       }
       
     })
