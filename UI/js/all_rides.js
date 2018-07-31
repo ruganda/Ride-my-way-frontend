@@ -37,8 +37,8 @@ function getRides() {
                     <p> from ${ride.origin}</p>
                     <p>to ${ride.destination}</p>
                     <p> by ${ride.driver}</p>
-                    <p  class = "status-accepted" onclick="viewRequests()">view requests</p>
-                    <p id = ${ride.id} class="details-button" onclick="storeId(this.id)">View details</p>
+                    <p id = ${ride.id} class = "status-accepted" onclick="viewRequests(this.id)">view requests</p>
+                    <p id = ${ride.id} class="details-button" onclick="sigleRide(this.id)">View details</p>
                 </div>   
                 
             </div>
@@ -52,17 +52,89 @@ function getRides() {
 
 }
 
-function storeId(id) {
-    localStorage.setItem("id", id);
-    window.location.href = './ride_details.html';
+// CONSUMES FETCH SINGLE RIDE BY ID
+function sigleRide(rideId) {
+    localStorage.setItem('id', rideId);
+    fetch(`http://127.0.0.1:5000/api/v2/rides/${rideId}`, {
+        headers: {
+            'Authorization': localStorage.getItem("access_token"),
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        }
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            danger.innerHTML = " ";
+            success.innerHTML = " ";
+            document.getElementById('row').innerHTML = `<div class="row">
+
+        <div class="row card-details">
+            <div class="ride-details">
+                <p class="details-heading">id:</p>
+                <p class="detail">${data.id}</p>
+            </div>
+            <div class="ride-details">
+                <p class="details-heading">Origin:</p>
+                <p class="detail">${data.origin}</p>
+            </div>
+            <div class="ride-details">
+                <p class="details-heading">Destination:</p>
+                <p class="detail">${data.destination}</p>
+            </div>
+            <div class="ride-details">
+                <p class="details-heading">Date & time:</p>
+                <p class="detail">${data.date_time}</p>
+            </div>
+            <div class="ride-details">
+                <p class="details-heading">Driver:</p>
+                <a href="profile.html"><p class="detail">${data.driver}</p></a>
+            </div>
+            <div class= "button-center">
+                <button id = ${data.id} onclick = joinRide(this.id)  class="btnz btn-primary">JOIN RIDE</button>
+            </div>
+        </div>`
+
+        });
+
+}
+
+
+// CONSUMES SEND RIDE REQUEST
+function joinRide(rideId) {
+    let success = document.getElementById("success");
+    let danger = document.getElementById("danger");
+    
+    fetch(`http://127.0.0.1:5000/api/v2/rides/${rideId}/requests`, {
+        method: 'POST',
+        headers: {
+            'Authorization': localStorage.getItem("access_token"),
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        },
+
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            if (data.msg == "A request to join this ride has been sent"){
+                success.innerHTML = "You have successfully sent a request to join this ride";
+                danger.innerHTML =" ";
+            }else{
+                success.innerHTML = " ";
+                danger.innerHTML = data.message;
+
+            }
+            
+        })
 }
 
 // CONSUMES FETCH ALL REQUESTS ON A PARTICULAR RIDE
-function viewRequests() {
+function viewRequests(rideId) {
     // let success = document.getElementById("success");
     let danger = document.getElementById("danger");
-    let id = localStorage.getItem('id');
-    fetch(`http://127.0.0.1:5000/api/v2/users/rides/1/requests`, {
+    
+    fetch(`http://127.0.0.1:5000/api/v2/users/rides/${rideId}/requests`, {
         method: 'GET',
         headers: {
             'Authorization': localStorage.getItem("access_token"),
@@ -71,26 +143,20 @@ function viewRequests() {
         },
 
     })
-    .then((response) => {
-        if (response.status === 404) {
-            danger.innerText = 'You can only respond to your requests';
-        }
-    
-        return response.json();
-      })
+    .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            if ("passenger" in data[0]) {
-                
+            if (data.msg === "You haven't recieved any ride requests yet") {
+                danger.innerHTML = data.msg
+
+            } else if (data.message === "Resource not found, Check the url and try again" ) {
+                danger.innerHTML = "You can only view requests to your rides."
+
+            } else {
+                danger.innerHTML = " ";
+                success.innerHTML = " ";
                 let output = `<div class="card"> 
-                                
-                            </div>
-                            <div id="ride-info" href="ride_details.html">
-                            <p>Id</p>
-                            <p>PASSENGER</p>
-                            <p>STATUS</p>
-                            <p>MANAGE REQUEST</p>
-                            <p>MANAGE REQUEST</p>
+                            
                             </div>
                             `
                 data.forEach(function (request) {
@@ -98,12 +164,12 @@ function viewRequests() {
                         `
                         <div class="card">
                             <div class="ride-info">
-                                <p>${request.id}</p>
-                                <p>${request.passenger}</p>
-                                <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;${request.status}</p>
-                                <p id = ${request.id}>
-                                    <p id = "accepted" class="details-success" onclick="respondRequest(this.id)" >Accept</p>
-                                    <p id = "rejected" class="details-danger" onclick="respondRequest(this.id)" >Reject</p>
+                                <p>#ID: ${request.id}</p>
+                                <p>PASSENGER: ${request.passenger}</p>
+                                <p id = "status">STATUS: ${request.status}</p>
+                                <p>
+                                    <p id = ${request.id}  class="details-success" onclick="respondRequest(this.id, ${request.ride_id}, 'accepted')" >Accept</p>
+                                    <p id = ${request.id}  class="details-danger" onclick="respondRequest(this.id, ${request.ride_id}, 'rejected')" >Reject</p>
                                 </p>
                                 
                             </div>
@@ -112,24 +178,19 @@ function viewRequests() {
                                             <h2 class="section-heading">Requests from ride ${request.ride_id}</h2>
                                     </div>`
                     document.getElementById("row").innerHTML = heading + output;
-
                 });
-            } else {
-                danger.innerHTML = data.msg
-
             }
-
-
-        })
+        });
 }
 
-function respondRequest(requestValue) {
+// CONSUMES RESPOND TO A PARTICULAR RIDE REQUEST
+function respondRequest(requestId, rideId, status) {
+    alert(status)
+    alert(rideId)
+    alert(requestId)
     let success = document.getElementById("success");
-    let danger = document.getElementById("danger");
-    let id = localStorage.getItem('id');
-    let status = requestValue;
-    alert(requestValue)
-    fetch(`http://127.0.0.1:5000/api/v2/users/rides/20/requests/1`, {
+    let danger = document.getElementById("danger");   
+    fetch(`http://127.0.0.1:5000/api/v2/users/rides/${rideId}/requests/${requestId}`, {
         method: 'PUT',
         headers: {
             'Authorization': localStorage.getItem("access_token"),
@@ -143,10 +204,12 @@ function respondRequest(requestValue) {
             console.log(data);
             if (data.message === 'you have accepted this ride request'){
                 success.innerHTML = data.message;
-                danger.innerHTML = " "
+                danger.innerHTML = " ";
+                // document.getElementById('status').innerHTML = 'accepted';
             }else{
-                danger.innerHTML = data.message
-                success.innerHTML = " "
+                danger.innerHTML = data.message;
+                success.innerHTML = " ";  
+                // document.getElementById('status').innerHTML = 'rejected';
 
             }
             
