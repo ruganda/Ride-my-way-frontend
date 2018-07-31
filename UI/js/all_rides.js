@@ -9,7 +9,7 @@ let danger = document.getElementById("danger");
 document.getElementById('all_rides').addEventListener("load", getRides());
 
 function getRides() {
-    fetch(" http://127.0.0.1:5000/api/v2/rides/", {
+    fetch(" https://rugandaride.herokuapp.com/api/v2/rides/", {
         //   mode:'cors',
         headers: {
             'Authorization': localStorage.getItem("access_token"),
@@ -55,7 +55,7 @@ function getRides() {
 // CONSUMES FETCH SINGLE RIDE BY ID
 function sigleRide(rideId) {
     localStorage.setItem('id', rideId);
-    fetch(`http://127.0.0.1:5000/api/v2/rides/${rideId}`, {
+    fetch(`https://rugandaride.herokuapp.com/api/v2/rides/${rideId}`, {
         headers: {
             'Authorization': localStorage.getItem("access_token"),
             'Accept': 'application/json',
@@ -105,7 +105,7 @@ function joinRide(rideId) {
     let success = document.getElementById("success");
     let danger = document.getElementById("danger");
     
-    fetch(`http://127.0.0.1:5000/api/v2/rides/${rideId}/requests`, {
+    fetch(`https://rugandaride.herokuapp.com/api/v2/rides/${rideId}/requests`, {
         method: 'POST',
         headers: {
             'Authorization': localStorage.getItem("access_token"),
@@ -134,7 +134,7 @@ function viewRequests(rideId) {
     // let success = document.getElementById("success");
     let danger = document.getElementById("danger");
     
-    fetch(`http://127.0.0.1:5000/api/v2/users/rides/${rideId}/requests`, {
+    fetch(`https://rugandaride.herokuapp.com/api/v2/users/rides/${rideId}/requests`, {
         method: 'GET',
         headers: {
             'Authorization': localStorage.getItem("access_token"),
@@ -190,7 +190,7 @@ function respondRequest(requestId, rideId, status) {
     alert(requestId)
     let success = document.getElementById("success");
     let danger = document.getElementById("danger");   
-    fetch(`http://127.0.0.1:5000/api/v2/users/rides/${rideId}/requests/${requestId}`, {
+    fetch(`https://rugandaride.herokuapp.com/api/v2/users/rides/${rideId}/requests/${requestId}`, {
         method: 'PUT',
         headers: {
             'Authorization': localStorage.getItem("access_token"),

@@ -8,7 +8,7 @@ function addRide(e){
     let destination = document.getElementById('destination').value;
     let date = document.getElementById('date').value;
 
-    fetch("http://127.0.0.1:5000/api/v2/users/rides/", {
+    fetch("https://rugandaride.herokuapp.com/api/v2/users/rides/", {
       method:'POST',
       headers: {
         'Authorization':"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImpvaG5ydWdhbmRhIiwiZXhwIjoxNTMzMDU5ODI1fQ.p17pjjWxMdR26qpCJo9zNbsaoDOFBwEVI1abbrx4Q2U",
