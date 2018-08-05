@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RIDE MY WAY</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -31,27 +32,29 @@
             </nav>
         </div>
     </header>
+    
+    <section>
+        <div class="form-box">
+            <div id='danger'>
 
-    <div class="form-box">
-        <div id='danger'>
+            </div>
+            <div id='success'>
+
+            </div>
+            <h1>Register Here</h1>
+            <form id="registerUser" method="POST">
+                <p>Name</p>
+                <input type="text" name="name" id="name" placeholder="Enter Name">
+                <p>Username</p>
+                <input type="text" name="username" id="username" placeholder="Enter Username">
+                <p>Password</p>
+                <input type="password" name="password" id="password" placeholder="Enter Password">
+                <input type="submit" name="submit" value="Register">
+
+            </form>
 
         </div>
-        <div id='success'>
-
-        </div>
-        <h1>Register Here</h1>
-        <form id="registerUser" method="POST">
-            <p>Name</p>
-            <input type="text" name="name" id="name" placeholder="Enter Name">
-            <p>Username</p>
-            <input type="text" name="username" id="username" placeholder="Enter Username">
-            <p>Password</p>
-            <input type="password" name="password" id="password" placeholder="Enter Password">
-            <input type="submit" name="submit" value="Register">
-
-        </form>
-
-    </div>
+    </section>
     <script src="./js/register.js"></script>
 </body>
 
