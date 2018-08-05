@@ -20,7 +20,9 @@ function getRides() {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-
+            if (data.msg == " There are no rides rides at the moment"){
+                success.innerHTML = data.msg
+            }
             // document.getElementById("card").innerHTML=data;
             let output = `<div class="card"> 
                             <div class="row">
