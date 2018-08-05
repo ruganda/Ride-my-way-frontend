@@ -1,6 +1,5 @@
 
 document.getElementById('addRide').addEventListener('submit', addRide);
-let message = document.getElementById("message")
 function addRide(e){
     e.preventDefault();
 
@@ -20,11 +19,11 @@ function addRide(e){
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      "error" in data ? message.innerHTML = ` <div> ${data.message} </div>` : message.innerHTML = ` <p> ${data.message}</p>` ;
-      message.style.display = "block";
-      // message.innerHTML=data.message;
-      message.innerHTML  = `<div >${data.message}</div>`
-      message.style.display = "block";
+      if (data.message === "You offered a ride successfully."){
+        success.innerHTML = data.message
+      }else{
+        danger.innerHTML = data.message
+      }
 
     })
   }
