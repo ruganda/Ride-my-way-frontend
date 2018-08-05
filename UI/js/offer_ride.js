@@ -11,7 +11,7 @@ function addRide(e){
     fetch("https://rugandaride.herokuapp.com/api/v2/users/rides/", {
       method:'POST',
       headers: {
-        'Authorization':"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImpvaG5ydWdhbmRhIiwiZXhwIjoxNTMzMDU5ODI1fQ.p17pjjWxMdR26qpCJo9zNbsaoDOFBwEVI1abbrx4Q2U",
+        'Authorization':localStorage.getItem("access_token"),
         'Accept': 'application/json, text/plain, */*',
         'Content-type':'application/json'
       },
