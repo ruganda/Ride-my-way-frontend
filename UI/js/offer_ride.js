@@ -21,6 +21,7 @@ function addRide(e){
       console.log(data);
       if (data.message === "You offered a ride successfully."){
         success.innerHTML = data.message
+        window.location.href = './all_rides.html'
       }else{
         danger.innerHTML = data.message
       }
