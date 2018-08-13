@@ -252,11 +252,6 @@ max-width: 855px;
   padding-right: 2.0rem;
   text-decoration: none;
   }
-.ride-info:hover,
-.ride-info:active {
-background-color: rgba(5, 5, 5, 0.5);
-color: #eceaea;
-}
 
 
 .btnz {
@@ -300,6 +295,12 @@ color: #eceaea;
   border-radius: 5px;
   width: 95px;
  
+  }
+  .status-accepted:hover,
+  .status-accepted:active {
+  background-color: rgba(5, 5, 5, 0.5);
+  color: #eceaea;
+  cursor: pointer;
   }
   
   .status-requested {
@@ -439,6 +440,13 @@ a {
   width: 95px;
  
   }
+
+.details-button:hover,
+.details-button:active {
+background-color: rgba(5, 5, 5, 0.5);
+color: #eceaea;
+cursor: pointer;
+}
 
   .details-success{
     background-color: rgb(73, 231, 10);
