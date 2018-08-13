@@ -56,7 +56,7 @@ function getRides() {
 
 // CONSUMES FETCH SINGLE RIDE BY ID
 function sigleRide(rideId) {
-    localStorage.setItem('id', rideId);
+    // localStorage.setItem('id', rideId);
     fetch(`https://rugandaride.herokuapp.com/api/v2/rides/${rideId}`, {
         headers: {
             'Authorization': localStorage.getItem("access_token"),
@@ -122,6 +122,8 @@ function joinRide(rideId) {
             if (data.msg == "A request to join this ride has been sent"){
                 success.innerHTML = "You have successfully sent a request to join this ride";
                 danger.innerHTML =" ";
+            }else if(data.msg === "You already requested to join this ride"){
+                danger.innerHTML = data.msg  
             }else{
                 success.innerHTML = " ";
                 danger.innerHTML = data.message;
@@ -187,9 +189,9 @@ function viewRequests(rideId) {
 
 // CONSUMES RESPOND TO A PARTICULAR RIDE REQUEST
 function respondRequest(requestId, rideId, status) {
-    alert(status)
-    alert(rideId)
-    alert(requestId)
+    // alert(status)
+    // alert(rideId)
+    // alert(requestId)
     let success = document.getElementById("success");
     let danger = document.getElementById("danger");   
     fetch(`https://rugandaride.herokuapp.com/api/v2/users/rides/${rideId}/requests/${requestId}`, {
