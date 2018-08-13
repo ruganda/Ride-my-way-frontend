@@ -22,6 +22,9 @@ function getRides() {
             console.log(data);
             if (data.msg == " There are no rides rides at the moment"){
                 success.innerHTML = data.msg
+            }else if (data.message === "Token is invalid!"){
+                window.location.href = './login.html';
+
             }
             // document.getElementById("card").innerHTML=data;
             let output = `<div class="card"> 
