@@ -243,8 +243,8 @@ max-width: 855px;
 
 .ride-info {
   align-items: center;
-  background-color: black;
-  color: #fff;
+  background-color: rgb(255, 255, 255);
+  color: rgb(17, 16, 16);
   display: flex;
   font-weight: 400;
   justify-content: space-between;
