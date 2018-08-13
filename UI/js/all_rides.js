@@ -90,7 +90,7 @@ function sigleRide(rideId) {
             </div>
             <div class="ride-details">
                 <p class="details-heading">Driver:</p>
-                <a href="profile.html"><p class="detail">${data.driver}</p></a>
+                <p class="detail">${data.driver}</p>
             </div>
             <div class= "button-center">
                 <button id = ${data.id} onclick = joinRide(this.id)  class="btnz btn-primary">JOIN RIDE</button>
